@@ -1,0 +1,18 @@
+# Ignore compiled files
+__pycache__/
+*.pyc
+
+# Ignore virtual environments
+.venv/
+
+# Ignore Robot Framework results
+Results/
+*.html
+*.xml
+*.png
+
+# Ignore database
+*.db
+
+# VSCode settings
+.vscode/
