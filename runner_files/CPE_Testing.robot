@@ -40,8 +40,8 @@ Login To Router
     Sleep    5s    # Optional: wait for UI update
     Capture Page Screenshot    Login To Router page verification.png
 
-    Execute JavaScript    arguments[0].scrollIntoView(true);    xpath=//h3[text()='WiFi Settings']
-    # Scroll Element Into View    xpath=//h3[normalize-space(text())='WiFi Settings']
+    #Execute JavaScript    arguments[0].scrollIntoView(true);    xpath=//h3[text()='WiFi Settings']
+    Scroll Element Into View    xpath=//h3[normalize-space(text())='WiFi Settings']
     Capture Page Screenshot    Login To Router page wifi setting.png
 
 
