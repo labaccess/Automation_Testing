@@ -2,6 +2,8 @@ import subprocess
 import pyshark
 from tqdm import tqdm
 
+import re
+
 global TARGET_DOMAIN, DNS_DISPLAY_FILTER
 
 DNS_DISPLAY_FILTER = 'dns and dns.qry.name contains "filgoal"'
