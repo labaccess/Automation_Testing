@@ -9,22 +9,22 @@ class DBListener(ListenerV3):
 
     def __init__(self, db_path="test_results.db"):
         self.ROBOT_LIBRARY_LISTENER = self
-        logger.console("🚀 DBListener initialized")
+        #logger.console("🚀 DBListener initialized")
         self.conn = sqlite3.connect(db_path, timeout=5)
         self.cursor = self.conn.cursor()
         self._create_tables()
         self.run_id = self._create_test_run()
-        logger.console(f"📌 New test run ID = {self.run_id}")
+        #logger.console(f"📌 New test run ID = {self.run_id}")
 
     def _create_tables(self):
-        logger.console(f"📌 Create test_runs table ")
+        #logger.console(f"📌 Create test_runs table ")
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS test_runs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 timestamp TEXT DEFAULT (datetime('now'))
             )
         ''')
-        logger.console(f"📌 Create test_results table ")
+        #logger.console(f"📌 Create test_results table ")
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS test_results (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,7 +37,7 @@ class DBListener(ListenerV3):
                 message TEXT
             )
         ''')
-        logger.console(f"📌 Create run_files table ")
+        #logger.console(f"📌 Create run_files table ")
         self.cursor.execute('''
         CREATE TABLE IF NOT EXISTS run_files (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -55,7 +55,7 @@ class DBListener(ListenerV3):
         return self.cursor.lastrowid
 
     def end_test(self, data, result):
-        logger.console(f"📍 end_test() called for: {result.name}")
+       # logger.console(f"📍 end_test() called for: {result.name}")
         try:
             suite_name = result.parent.name
             test_name = result.name
@@ -70,7 +70,7 @@ class DBListener(ListenerV3):
             ''', (self.run_id, suite_name, test_name, status, start_time, end_time, message))
             self.conn.commit()
 
-            logger.console(f"✅ Inserted result: {test_name} ({status})")
+            #logger.console(f"✅ Inserted result: {test_name} ({status})")
 
         except Exception as e:
             logger.console(f"❌ Failed to insert result: {e}")
@@ -78,7 +78,7 @@ class DBListener(ListenerV3):
     def close(self):
         try:
             self.conn.close()
-            logger.console("🧹 Database connection closed.")
+            #logger.console("🧹 Database connection closed.")
         except Exception as e:
             logger.console(f"❌ DB close failed: {e}")
     
