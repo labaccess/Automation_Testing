@@ -9,7 +9,7 @@ ${SSID_SAVE_BUTTON}  id=applyWifiBtn
 *** Keywords ***
 
 Change SSID
-    [Arguments]    ${NEW_SSID}    # إضافة NEW_SSID كـ argument
+    [Arguments]    ${NEW_SSID}    
     Navigate To Sub Menu    network    Wireless
     Wait Until Element Is Visible    ${SSID_FIELD}    timeout=10s
     Clear Element Text    ${SSID_FIELD}
