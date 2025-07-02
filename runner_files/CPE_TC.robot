@@ -9,29 +9,29 @@ ${vendor_id}
 ${CPE_VENDOR_ID_PAGE_INFO}
 
 *** Test Cases ***
-#
-#Login And BNG REBOOT
-#    [Documentation]    Logs into the router and reboot BNG
-#    Open CPE Page
-#    Login To Router
-#    Test BNG Connection
-#    Logout from Router
-#    [Teardown]
-#
-#BNG REBOOT
-#    [Documentation]    reboot BNG
-#    Test BNG Connection
-#    [Teardown]
-#
-#VENDOR ID
-#    [Documentation]   TC12 - Check vendor ID of ONT \
-#    Cabin Side Get Vendor ID
-#    Open CPE Page
-#    Login To Router
-#    CPE Get Vendor ID
-#    Logout from Router
-#    Cabin Compare Vendor ID
-#    [Teardown]
+
+Login And BNG REBOOT
+    [Documentation]    Logs into the router and reboot BNG
+    Open CPE Page
+    Login To Router
+    Test BNG Connection
+    Logout from Router
+    [Teardown]
+
+BNG REBOOT
+    [Documentation]    reboot BNG
+    Test BNG Connection
+    [Teardown]
+
+VENDOR ID
+    [Documentation]   TC12 - Check vendor ID of ONT \
+    Cabin Side Get Vendor ID
+    Open CPE Page
+    Login To Router
+    CPE Get Vendor ID
+    Logout from Router
+    Cabin Compare Vendor ID
+    [Teardown]
 
 Testing SSID Change
     [Documentation]   TC14 - change SSID on CPE and check the reflection
