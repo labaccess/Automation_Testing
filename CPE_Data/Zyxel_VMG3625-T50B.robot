@@ -13,7 +13,7 @@ ${CABIN_TYPE}      Huawei
 ${DUT_LOCATION}  0 5 0 16
 ${SSID_FIELD}        id=wifi_ssid_000_11general11_000
 ${SSID_SAVE_BUTTON}  id=applyWifiBtn
-
+${VENDOR}
 
 *** Keywords ***
 Open CPE Page
