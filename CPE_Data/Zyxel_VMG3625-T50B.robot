@@ -13,7 +13,12 @@ ${CABIN_TYPE}      Huawei
 ${DUT_LOCATION}  0 5 0 16
 ${SSID_FIELD}        id=wifi_ssid_000_11general11_000
 ${SSID_SAVE_BUTTON}  id=applyWifiBtn
-#${VENDOR}
+#${MAIN_MENU_IDS}           connect    network    security    system    maintenance
+#@{SECURITY_SUBMENUS}      Firewall    MACFilter    ParentalControl    SchedulerRule    Certificates
+#@{NETWORK_SUBMENUS}       Broadband    Wireless    HomeNetworking    Routing    QoS    NAT    DNS    VlanGroup    InterfaceGrouping
+#@{SYSTEM_MONITOR_SUBMENUS}    Log    TrafficStatus    ARPTable    RoutingTable    xDSLStatistics    WLANStationStatus    CellularStatistics
+#@{MAINTENANCE_SUBMENUS}   System    UserAccount    RemoteManagement    TR069Client    SNMP    Time    EmailNotification    LogSettings    FirmwareUpgrade    BackupRestore    Reboot    Diagnostic
+
 
 *** Keywords ***
 Open CPE Page
@@ -32,16 +37,7 @@ Login To Router
     Sleep    5s    # Optional: wait for UI update
     Capture Page Screenshot    welcome_page.png
 
-CPE Get Vendor ID
-    Sleep    1s
-    Click Element    xpath=//div[@id='card_sys']/div
-    Sleep    1s
-    Click Element    xpath=//div[@id='card_sysinfo']/span
-    Sleep    1s
-    Capture Page Screenshot    device_Vendor_ID.png
-    ${CPE_VENDOR_ID_PAGE_INFO} =    Get Text    xpath=//li[normalize-space(.)='Manufacturer']/following-sibling::li[1]
-    Set Suite Variable    ${CPE_VENDOR_ID_PAGE_INFO}
-    Log    Manufacturer is: ${CPE_VENDOR_ID_PAGE_INFO}
+
 
 Logout from router
     Sleep    3s    # Optional: wait for UI update
@@ -61,20 +57,10 @@ Logout from router
 
     Close Browser
 
-Change SSID
-    [Arguments]    ${NEW_SSID}
-    Navigate To Sub Menu    network    Wireless
-    Wait Until Element Is Visible    ${SSID_FIELD}    timeout=10s
-    Clear Element Text    ${SSID_FIELD}
-    Input Text    ${SSID_FIELD}    ${NEW_SSID}
-    Click Button    ${SSID_SAVE_BUTTON}
-    Sleep    2s
-    Capture Page Screenshot    ${SCREENSHOT_DIR}/ssid_change.png
-
 
 Open Sidebar
-    Wait Until Element Is Visible    ${SIDEBAR_BUTTON}    timeout=5s
-    Click Element    ${SIDEBAR_BUTTON}
+    Wait Until Element Is Visible    id=h_menu_list    timeout=5s
+    Click Element    id=h_menu_list
     Sleep    1s
 
 Navigate To Main Menu
@@ -88,3 +74,39 @@ Navigate To Sub Menu
     Navigate To Main Menu    ${main_menu_id}
     Click Element    xpath=//a[contains(@href, "${sub_href}")]
     Sleep    2s
+
+
+#Change SSID
+#    [Arguments]    ${NEW_SSID}
+#    Navigate To Sub Menu    network    Wireless
+#    Wait Until Element Is Visible    ${SSID_FIELD}    timeout=10s
+#    Clear Element Text    ${SSID_FIELD}
+#    Input Text    ${SSID_FIELD}    ${NEW_SSID}
+#    Click Button    ${SSID_SAVE_BUTTON}
+#    Sleep    2s
+#    Capture Page Screenshot    ${SCREENSHOT_DIR}/ssid_change.png
+
+
+
+
+CPE Get Vendor ID
+    Sleep    1s
+    Click Element    xpath=//div[@id='card_sys']/div
+    Sleep    1s
+    Click Element    xpath=//div[@id='card_sysinfo']/span
+    Sleep    1s
+    Capture Page Screenshot    device_Vendor_ID.png
+    ${CPE_VENDOR_ID_PAGE_INFO} =    Get Text    xpath=//li[normalize-space(.)='Manufacturer']/following-sibling::li[1]
+    Set Suite Variable    ${CPE_VENDOR_ID_PAGE_INFO}
+    Log    Manufacturer is: ${CPE_VENDOR_ID_PAGE_INFO}
+
+Change MTU Value
+    Navigate To Sub Menu    network    Broadband
+    Wait Until Element Is Visible    xpath=//table[@id="Network_Broadband_Broad_Table"]
+    Click Element    xpath=(//span[@id="Network_Broadband_Broad_Edit1"])[1]
+    Wait Until Element Is Visible    id=bb_mtuValue
+    Clear Element Text    id=bb_mtuValue
+    Input Text    id=bb_mtuValue    1492
+    Click Button    id=WANInterface_btnsave
+    Sleep    3s
+
